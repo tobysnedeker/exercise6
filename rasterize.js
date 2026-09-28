@@ -190,9 +190,39 @@ function renderTriangles() {
     mat4.multiply(inputTriangles[0].mMatrix,
                   mat4.fromTranslation(mat4.create(),setCenter),
                   inputTriangles[0].mMatrix); // move back to center
-        
+    
+    
     // define the modeling matrix for the second set
     inputTriangles[1].mMatrix = mat4.create();
+    mat4.fromTranslation(inputTriangles[1].mMatrix, vec3.fromValues(-0.1,-0.25,0.0));
+    mat4.multiply(
+        inputTriangles[1].mMatrix,
+        inputTriangles[1].mMatrix,
+        mat4.fromScaling(mat4.create(), vec3.fromValues(2, 2, 1))
+    );
+
+    // rotate both and translate to left corner
+    mat4.multiply(
+        inputTriangles[0].mMatrix,
+        mat4.fromRotation(mat4.create(), Math.PI/4, vec3.fromValues(0,0,1)),
+        inputTriangles[0].mMatrix
+    );
+    mat4.multiply(
+        inputTriangles[1].mMatrix,
+        mat4.fromRotation(mat4.create(), Math.PI/4, vec3.fromValues(0,0,1)),
+        inputTriangles[1].mMatrix
+    );
+
+    mat4.multiply(
+        inputTriangles[0].mMatrix,
+        mat4.fromTranslation(mat4.create(), vec3.fromValues(-0.45, -0.9,0)),
+        inputTriangles[0].mMatrix,
+    );
+    mat4.multiply(
+        inputTriangles[1].mMatrix,
+        mat4.fromTranslation(mat4.create(), vec3.fromValues(-0.45, -0.9,0)),
+        inputTriangles[1].mMatrix,
+    );
     
     for (var whichTriSet=0; whichTriSet<numTriangleSets; whichTriSet++) { 
         
